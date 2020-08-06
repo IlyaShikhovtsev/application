@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Edit department</title>
+  <style type="text/css">
+    body {
+      padding: 50px;
+    }
+
+    label {
+      display: inline-block;
+      width: 100px;
+    }
+
+    input:read-only {
+      background: lightgray;
+    }
+
+    .row {
+      margin-top: 10px;
+    }
+
+    .employees, .employees td {
+      border: 1px solid lightgray;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+<a href="/departments" th:href="@{/departments}">Departments</a>
+<a href="/employees" th:href="@{/employees}">Employees</a>
+
+<!-- Department edition -->
+<form action="edit.html" id="edit-form" th:action="@{/departments/edit(id=*{id})}" th:method="post" th:object="${department}">
+  <h1>Department Info:</h1>
+
+  <div class="row">
+    <label for="id-input">ID:</label>
+    <input id="id-input" readonly="readonly" th:value="*{id}" type="text" value="1"/>
+  </div>
+
+  <div class="row">
+    <label for="holder-input">Name:</label>
+    <input id="holder-input" name="name" th:value="*{name}" type="text" value="John Doe"/>
+  </div>
+
+  <div class="row">
+    <button type="submit">Save</button>
+  </div>
+</form>
+
+<table class="employees">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Fio</th>
+    <th>Birthday</th>
+    <th>Salary</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="employee : ${employees}">
+    <td th:text="${employee.id}">1</td>
+    <td th:text="${employee.fio}">Fio</td>
+    <td th:text="${employee.birthday}">Birthday</td>
+    <td th:text="${employee.salary}">Salary</td>
+    <td>
+      <a href="/departments" th:href="@{/employees/edit(id=${employee.id})}">Edit</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

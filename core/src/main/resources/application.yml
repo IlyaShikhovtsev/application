@@ -1,0 +1,9 @@
+spring:
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: create
+  data:
+    rest:
+      defaultMediaType: application/json
+

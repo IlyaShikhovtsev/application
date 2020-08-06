@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Edit user</title>
+  <style type="text/css">
+    body {
+      padding: 50px;
+    }
+
+    label {
+      display: inline-block;
+      width: 100px;
+    }
+
+    input:read-only {
+      background: lightgray;
+    }
+  </style>
+</head>
+<body>
+<a href="/departments" th:href="@{/departments}">Departments</a>
+<a href="/employees" th:href="@{/employees}">Employees</a>
+
+<!-- Employee edition -->
+<form action="edit.html" id="edit-form" th:action="@{/employees/edit(id=*{id})}" th:method="post" th:object="${employee}">
+  <h1>Employee Info:</h1>
+
+  <div class="row">
+    <label for="id-input">ID:</label>
+    <input id="id-input" readonly="readonly" th:value="*{id}" type="text" value="1"/>
+  </div>
+
+  <div class="row">
+    <label for="name-input">FIO:</label>
+    <input id="name-input" name="fio" th:value="*{fio}" type="text" value="John Doe"/>
+  </div>
+
+  <div class="row">
+    <label for="birthday-input">Birthday:</label>
+    <input id="birthday-input" name="birthday" th:value="*{birthday}" type="date" value="15 05 1997"/>
+  </div>
+
+  <div class="row">
+    <label for="salary-input">Salary:</label>
+    <input id="salary-input" name="salary" th:value="*{salary}" type="text" value="100"/>
+  </div>
+
+  <div class="row">
+    <label for="department-input">Department:</label>
+    <select id="department-input" name="departmentId">
+      <option th:each="department : ${departments}" th:selected="${department.id==employee.departmentId}" th:text="${department.name}"
+              th:value="${department.id}">
+      </option>
+    </select>
+  </div>
+
+  <div class="row">
+    <button type="submit">Save</button>
+  </div>
+</form>
+</body>
+</html>

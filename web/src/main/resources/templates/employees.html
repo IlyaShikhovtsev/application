@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>List of all employees</title>
+  <style type="text/css">
+    body {
+      padding: 50px;
+    }
+
+    .employees, .employees td {
+      border: 1px solid lightgray;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+<a href="/departments" th:href="@{/departments}">Departments</a>
+<a href="/employees" th:href="@{/employees}">Employees</a>
+
+<form action="edit.html" id="edit-form" th:action="@{/employees}" th:method="post">
+  <h1>Filter:</h1>
+
+  <div class="row">
+    <label for="from-input">From:</label>
+    <input id="from-input" name="from" th:value="${from}" type="date" value="15 05 1997"/>
+  </div>
+
+  <div class="row">
+    <label for="to-input">To:</label>
+    <input id="to-input" name="to" th:value="${to}" type="date" value="15 05 1997"/>
+  </div>
+
+  <div class="row">
+    <button type="submit">Filter</button>
+  </div>
+</form>
+<a href="/departments" th:href="@{/departments}">Departments</a>
+<a href="/employees" th:href="@{/employees}">Employees</a>
+
+
+<h1>Employees:</h1>
+
+
+<table class="employees">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>FIO</th>
+    <th>Birthday</th>
+    <th>Salary</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="employee : ${employees}">
+    <td th:text="${employee.id}">1</td>
+    <td th:text="${employee.fio}">John Doe</td>
+    <td th:text="${employee.birthday}">John Doe</td>
+    <td th:text="${employee.salary}">John Doe</td>
+    <td>
+      <a href="edit.html" th:href="@{/employees/edit(id=${employee.id})}">Edit</a>
+    </td>
+    <td>
+      <a href="/employees" th:href="@{/employees/delete(id=${employee.id})}">Delete</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<a href="/employees" th:href="@{/employees/create}">Create</a>
+</body>
+</html>
